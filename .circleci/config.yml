@@ -38,5 +38,33 @@ jobs: # a collection of steps
       - run:
           command: |
             ./build-docs.sh
-            ls
-            hub --help
+
+  deploy:
+    docker:
+      - image: circleci/php:7.2-node-browsers
+    working_directory: ~/laravel
+    steps:
+      - run:
+          name: Install and configure dependencies
+          command: |
+            npm install -g --silent gh-pages
+            git config user.email "sinkcup+cyborg@gmail.com"
+            git config user.name "Cyborg Girl"
+      - add_ssh_keys:
+          fingerprints:
+            - "8d:4d:a0:2f:19:d2:d9:8c:ed:83:2c:20:bc:aa:32:f0"
+      - run:
+          name: Deploy docs to gh-pages branch
+          command: gh-pages --dotfiles --message "[skip ci] Updates" --dist site
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
