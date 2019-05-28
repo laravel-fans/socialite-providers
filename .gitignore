@@ -1,3 +1,6 @@
 .idea/
 vendor/
 composer.lock
+/mkdocs.yml
+/docs/
+/site/
