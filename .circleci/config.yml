@@ -10,11 +10,8 @@ jobs: # a collection of steps
       - run: if [ "$CIRCLE_BRANCH" != "master" ]; then git fetch --force origin master:master; fi # fuck circleci bug. https://support.circleci.com/hc/en-us/articles/115015659247-How-do-I-modify-the-checkout-step-
       - run:
           command: |
-              sudo apt install -y gnupg2 libjpeg-dev libpng-dev libsqlite3-dev zlib1g-dev
-              sudo -E docker-php-ext-configure gd --with-gd --with-jpeg-dir --with-png-dir --with-zlib-dir
-              sudo -E docker-php-ext-install gd
               sudo -E docker-php-ext-enable opcache
-      - run: sudo composer self-update
+              sudo composer self-update
       - run:
           command: |
               wget -O /tmp/hub.tgz https://github.com/github/hub/releases/download/v2.11.2/hub-linux-amd64-2.11.2.tgz
@@ -38,16 +35,23 @@ jobs: # a collection of steps
       - run:
           command: |
             ./build-docs.sh
+      - save_cache:
+          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/laravel
 
   deploy:
     docker:
       - image: circleci/php:7.2-node-browsers
     working_directory: ~/laravel
     steps:
+      - restore_cache:
+          keys:
+            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
       - run:
           name: Install and configure dependencies
           command: |
-            npm install -g --silent gh-pages
+            sudo npm install -g --silent gh-pages
             git config user.email "sinkcup+cyborg@gmail.com"
             git config user.name "Cyborg Girl"
       - add_ssh_keys:
