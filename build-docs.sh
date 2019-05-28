@@ -1,5 +1,6 @@
 #!/bin/bash
 
+rm -rf docs
 mkdir -p docs
 cp README.md docs/
 echo "site_name: 'Laravel Socialite Providers'
@@ -8,7 +9,7 @@ nav:
     - index: 'README.md'" > mkdocs.yml
 
 for file in `ls */composer.json`; do
-    package_id=`node getValueFromJsonFile.js $file`
+    package_id=`node getValueFromJsonFile.js $file extra.component.id`
     echo $package_id
     dir_name=`dirname $file`
     cp $dir_name/README.md docs/$package_id.md
