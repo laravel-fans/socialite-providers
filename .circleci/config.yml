@@ -52,6 +52,9 @@ jobs: # a collection of steps
           keys:
             - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
       - run:
+          name: Avoid hosts unknown for github
+          command: mkdir -p ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+      - run:
           name: Install and configure dependencies
           command: |
             sudo npm install -g --silent gh-pages
