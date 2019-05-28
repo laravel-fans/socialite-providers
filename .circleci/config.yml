@@ -9,7 +9,7 @@ jobs: # a collection of steps
       - checkout # special step to check out source code to working directory
       - run:
           name: Avoid hosts unknown for github # HACK circleci bug. https://discuss.circleci.com/t/git-clone-fails-in-circle-2-0/15211/11
-          command: mkdir ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
+          command: mkdir -p ~/.ssh/ && echo -e "Host github.com\n\tStrictHostKeyChecking no\n" > ~/.ssh/config
       - run: if [ "$CIRCLE_BRANCH" != "master" ]; then git fetch --force origin master:master; fi # fuck circleci bug. https://support.circleci.com/hc/en-us/articles/115015659247-How-do-I-modify-the-checkout-step-
       - run:
           command: |
