@@ -64,6 +64,14 @@ jobs: # a collection of steps
           fingerprints:
             - "8d:4d:a0:2f:19:d2:d9:8c:ed:83:2c:20:bc:aa:32:f0"
       - run:
+          name: Install subsplit
+          command: |
+              sudo wget -O "$(git --exec-path)"/git-subsplit https://raw.githubusercontent.com/dflydev/git-subsplit/master/git-subsplit.sh
+              sudo chmod +x "$(git --exec-path)"/git-subsplit
+      - run:
+          name: auto split packages, push code and tag to new repo. but need submit to packagist.org manually, because it have no API to submit.
+          command: ./split-packages.sh
+      - run:
           name: Deploy docs to gh-pages branch
           command: gh-pages --dotfiles --message "[skip ci] Updates" --dist site
 

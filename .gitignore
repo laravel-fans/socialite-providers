@@ -4,3 +4,4 @@ composer.lock
 /mkdocs.yml
 /docs/
 /site/
+/.subsplit/
