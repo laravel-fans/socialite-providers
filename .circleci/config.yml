@@ -52,8 +52,8 @@ jobs: # a collection of steps
           name: Install and configure dependencies
           command: |
             sudo npm install -g --silent gh-pages
-            git config user.email "sinkcup+cyborg@gmail.com"
-            git config user.name "Cyborg Girl"
+            git config --global user.email "sinkcup+cyborg@gmail.com"
+            git config --global user.name "Cyborg Girl"
       - add_ssh_keys:
           fingerprints:
             - "8d:4d:a0:2f:19:d2:d9:8c:ed:83:2c:20:bc:aa:32:f0"
