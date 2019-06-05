@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>WeChatWeb - Laravel Socialite Providers</title>
+  <title>WeChatServiceAccount - Laravel Socialite Providers</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,8 +17,8 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "WeChatWeb";
-    var mkdocs_page_input_path = "wechat-web.md";
+    var mkdocs_page_name = "WeChatServiceAccount";
+    var mkdocs_page_input_path = "wechat-service-account.md";
     var mkdocs_page_url = null;
   </script>
   
@@ -53,14 +53,9 @@
     <a class="" href="..">index</a>
 	    </li>
           
-            <li class="toctree-l1">
-		
-    <a class="" href="../wechat-service-account/">WeChatServiceAccount</a>
-	    </li>
-          
             <li class="toctree-l1 current">
 		
-    <a class="current" href="./">WeChatWeb</a>
+    <a class="current" href="./">WeChatServiceAccount</a>
     <ul class="subnav">
             
     <li class="toctree-l2"><a href="#1-installation">1. Installation</a></li>
@@ -105,6 +100,11 @@
     </ul>
 	    </li>
           
+            <li class="toctree-l1">
+		
+    <a class="" href="../wechat-web/">WeChatWeb</a>
+	    </li>
+          
         </ul>
       </div>
       &nbsp;
@@ -127,7 +127,7 @@
     
       
     
-    <li>WeChatWeb</li>
+    <li>WeChatServiceAccount</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -139,7 +139,7 @@
               
                 <h2 id="1-installation">1. Installation</h2>
 <pre><code class="bash">// This assumes that you have composer installed globally
-composer require laravel-socialite-providers/wechat-web
+composer require laravel-socialitep-roviders/wechat-service-account
 </code></pre>
 
 <h2 id="2-service-provider">2. Service Provider</h2>
@@ -171,7 +171,7 @@ composer require laravel-socialite-providers/wechat-web
 <p>Add your listeners (i.e. the ones from the providers) to the <code>SocialiteProviders\Manager\SocialiteWasCalled[]</code> that you just created.</p>
 </li>
 <li>
-<p>The listener that you add for this provider is <code>'LaravelSocialiteProviders\\WeChatWeb\\WeChatWebExtendSocialite@handle',</code>.</p>
+<p>The listener that you add for this provider is <code>'LaravelSocialiteProviders\\WeChatServiceAccount\\WeChatServiceAccountExtendSocialite@handle',</code>.</p>
 </li>
 <li>
 <p>Note: You do not need to add anything for the built-in socialite providers unless you override them with your own providers.</p>
@@ -186,7 +186,7 @@ composer require laravel-socialite-providers/wechat-web
 protected $listen = [
     \SocialiteProviders\Manager\SocialiteWasCalled::class =&gt; [
         // add your listeners (aka providers) here
-        'LaravelSocialiteProviders\\WeChatWeb\\WeChatWebExtendSocialite@handle',
+        'LaravelSocialiteProviders\\WeChatServiceAccount\\WeChatServiceAccountExtendSocialite@handle',
     ],
 ];
 </code></pre>
@@ -199,12 +199,12 @@ protected $listen = [
 <h2 id="4-configuration-setup">4. Configuration setup</h2>
 <p>You will need to add an entry to the services configuration file so that after config files are cached for usage in production environment (Laravel command <code>artisan config:cache</code>) all config is still available.</p>
 <h4 id="add-to-configservicesphp">Add to <code>config/services.php</code>.</h4>
-<pre><code class="php">'wechat_web' =&gt; [
-    'client_id' =&gt; env('WECHAT_WEB_APP_ID'),
-    'client_secret' =&gt; env('WECHAT_WEB_APP_SECRET'),
-    'redirect' =&gt; env('WECHAT_WEB_CALLBACK_URL'),
-    'scopes' =&gt; preg_split('/,/', env('WECHAT_WEB_SCOPES'), null, PREG_SPLIT_NO_EMPTY), // can not use explode, see vlucas/phpdotenv#175
-    'union_id_with' =&gt; preg_split('/,/', env('WECHAT_WEB_UNION_ID_WITH'), null, PREG_SPLIT_NO_EMPTY),
+<pre><code class="php">'wechat_service_account' =&gt; [
+    'client_id' =&gt; env('WECHAT_SERVICE_ACCOUNT_APP_ID'),
+    'client_secret' =&gt; env('WECHAT_SERVICE_ACCOUNT_APP_SECRET'),
+    'redirect' =&gt; env('WECHAT_SERVICE_ACCOUNT_CALLBACK_URL'),
+    'scopes' =&gt; preg_split('/,/', env('WECHAT_SERVICE_ACCOUNT_SCOPES'), null, PREG_SPLIT_NO_EMPTY), // can not use explode, see vlucas/phpdotenv#175
+    'union_id_with' =&gt; preg_split('/,/', env('WECHAT_SERVICE_ACCOUNT_UNION_ID_WITH'), null, PREG_SPLIT_NO_EMPTY),
 ],
 </code></pre>
 
@@ -217,7 +217,11 @@ protected $listen = [
 <p>You should now be able to use it like you would regularly use Socialite (assuming you have the facade installed):</p>
 </li>
 </ul>
-<pre><code class="php">return Socialite::with('wechat_web')-&gt;redirect();
+<pre><code class="php">// default need user grant, and then you can get user info(nickname, unionid, openid...)
+return Socialite::with('wechat_service_account')-&gt;redirect();
+
+// not need user grant, and then you can only get openid
+return Socialite::with('wechat_service_account')-&gt;scopes('snsapi_base')-&gt;redirect();
 </code></pre>
 
 <h3 id="lumen-support">Lumen Support</h3>
@@ -231,10 +235,10 @@ protected $listen = [
 </ul>
 <p><strong>Note:</strong> If you are using this with Lumen, all providers will automatically be stateless since <strong>Lumen</strong> does not keep track of state.</p>
 <pre><code class="php">// to turn off stateless
-return Socialite::with('wechat_web')-&gt;stateless(false)-&gt;redirect();
+return Socialite::with('wechat_service_account')-&gt;stateless(false)-&gt;redirect();
 
 // to use stateless
-return Socialite::with('wechat_web')-&gt;stateless()-&gt;redirect();
+return Socialite::with('wechat_service_account')-&gt;stateless()-&gt;redirect();
 </code></pre>
 
 <h3 id="overriding-a-config">Overriding a config</h3>
@@ -252,7 +256,7 @@ $config = new \SocialiteProviders\Manager\Config(
     $additionalProviderConfig
 );
 
-return Socialite::with('wechat_web')-&gt;setConfig($config)-&gt;redirect();
+return Socialite::with('wechat_service_account')-&gt;setConfig($config)-&gt;redirect();
 </code></pre>
 
 <h3 id="retrieving-the-access-token-response-body">Retrieving the Access Token Response Body</h3>
@@ -261,11 +265,14 @@ via the <code>\Laravel\Socialite\User-&gt;token</code> public property.  Sometim
 may contain items such as a <code>refresh_token</code>.</p>
 <p>You can get the access token response body, after you called the <code>user()</code> method in Socialite, by accessing the property <code>$user-&gt;accessTokenResponseBody</code>;</p>
 <pre><code class="php">// default use openid as $user-&gt;id
-$user = Socialite::driver('wechat_web')-&gt;user();
+$user = Socialite::driver('wechat_service_account')-&gt;user();
 $accessTokenResponseBody = $user-&gt;accessTokenResponseBody;
 
 // use unionid as $user-&gt;id
-$user = Socialite::driver('wechat_web')-&gt;scopes('unionid')-&gt;user();
+$user = Socialite::driver('wechat_service_account')-&gt;scopes('unionid')-&gt;user();
+
+// not need user grant, you can only get openid
+$user = Socialite::driver('wechat_service_account')-&gt;scopes('snsapi_base')-&gt;user();
 </code></pre>
 
 <h4 id="reference_1">Reference</h4>
@@ -280,8 +287,10 @@ $user = Socialite::driver('wechat_web')-&gt;scopes('unionid')-&gt;user();
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="../wechat-web/" class="btn btn-neutral float-right" title="WeChatWeb">Next <span class="icon icon-circle-arrow-right"></span></a>
       
-        <a href="../wechat-service-account/" class="btn btn-neutral" title="WeChatServiceAccount"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+        <a href=".." class="btn btn-neutral" title="index"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -307,8 +316,10 @@ $user = Socialite::driver('wechat_web')-&gt;scopes('unionid')-&gt;user();
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../wechat-service-account/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
       
+      
+        <span style="margin-left: 15px"><a href="../wechat-web/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>
