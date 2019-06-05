@@ -11,15 +11,18 @@
         "socialiteproviders/manager": "^3.3.6"
     },
     "replace": {
+        "laravel-socialite-providers/wechat-service-account": "0.1.0",
         "laravel-socialite-providers/wechat-web": "0.1.0"
     },
     "autoload": {
         "psr-4": {
+            "LaravelSocialiteProviders\\WeChatServiceAccount\\": "WeChatServiceAccount/src",
             "LaravelSocialiteProviders\\WeChatWeb\\": "WeChatWeb/src"
         }
     },
     "autoload-dev": {
         "psr-4": {
+            "LaravelSocialiteProviders\\WeChatServiceAccount\\Tests\\": "WeChatServiceAccount/tests",
             "LaravelSocialiteProviders\\WeChatWeb\\Tests\\": "WeChatWeb/tests"
         }
     }
