@@ -70,6 +70,9 @@ jobs: # a collection of steps
           name: auto split packages, push code and tag to new repo. but need submit to packagist.org manually, because it have no API to submit.
           command: ./split-packages.sh
       - run:
+          name: create a tag from the version of composer.json, then packagist.org will release a new version automatically.
+          command: ./create-tag-from-composer-version.sh
+      - run:
           name: Deploy docs to gh-pages branch
           command: gh-pages --dotfiles --message "[skip ci] Updates" --dist site
 
