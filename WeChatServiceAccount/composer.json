@@ -1,5 +1,5 @@
 {
-    "name": "laravel-socialite-providers/wechat-service-account",
+    "name": "laravel-socialite-providers/socialite-wechat-service-account",
     "description": "WeChat Service Account OAuth2 Provider for Laravel Socialite",
     "version": "0.1.0",
     "license": "MIT",
@@ -15,7 +15,7 @@
     "extra": {
         "component": {
             "id": "wechat-service-account",
-            "target": "laravel-socialite-providers/wechat-service-account.git",
+            "target": "laravel-socialite-providers/socialite-wechat-service-account.git",
             "path": "WeChatServiceAccount",
             "entry": "src/Provider.php"
         }
