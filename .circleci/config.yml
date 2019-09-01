@@ -52,6 +52,7 @@ jobs: # a collection of steps
           name: Install and configure dependencies
           command: |
             sudo npm install -g --silent gh-pages
+            sudo chown -R $(whoami) $(npm config get prefix)/{lib/node_modules,bin,share}
             git config --global user.email "sinkcup+cyborg@gmail.com"
             git config --global user.name "Cyborg Girl"
       - add_ssh_keys:
