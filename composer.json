@@ -9,7 +9,11 @@
     }],
     "require": {
         "php": ">=5.5",
+        "ext-json": "*",
         "socialiteproviders/manager": "^3.3.6"
+    },
+    "require-dev": {
+        "dflydev/dot-access-data": "^2.0"
     },
     "replace": {
         "laravel-socialite-providers/socialite-wechat-service-account": "0.1.0",

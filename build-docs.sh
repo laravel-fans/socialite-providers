@@ -9,7 +9,7 @@ nav:
     - index: 'README.md'" >mkdocs.yml
 
 find -- */composer.json | while IFS='' read -r file; do
-  package_id=$(node getValueFromJsonFile.js "$file" extra.component.id)
+  package_id=$(php get-value-from-json-file.php "$file" extra.component.id)
   echo "$package_id"
   dir_name=$(dirname "$file")
   cp "$dir_name"/README.md docs/"$package_id".md

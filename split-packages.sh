@@ -5,9 +5,9 @@ rm -rf .subsplit
 git subsplit init "$(git config --get remote.origin.url)"
 git subsplit update
 find -- */composer.json | while IFS='' read -r file; do
-  target="$(node getValueFromJsonFile.js "$file" extra.component.target)"
+  target="$(php get-value-from-json-file.php "$file" extra.component.target)"
   repo_uri=$(echo "$target" | cut -d "." -f1)
-  desc=$(node getValueFromJsonFile.js "$file" description)
+  desc=$(php get-value-from-json-file.php "$file" description)
   dir_name=$(dirname "$file")
   hub create -d "$desc" "$repo_uri"
   git subsplit publish \
@@ -17,7 +17,7 @@ find -- */composer.json | while IFS='' read -r file; do
 
   # create tag
   echo -e "\ncreate tag"
-  version=$(node getValueFromJsonFile.js "$file" version)
+  version=$(php get-value-from-json-file.php "$file" version)
   repo_name=$(echo "$repo_uri" | cut -d "/" -f2)
   rm -rf /tmp/"$repo_name"
   pushd /tmp/
