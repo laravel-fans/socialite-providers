@@ -74,7 +74,7 @@ jobs: # a collection of steps
           command: ./create-tag-from-composer-version.sh
       - run:
           name: Deploy docs to gh-pages branch
-          command: gh-pages --dotfiles --message "[skip ci] Updates" --dist site
+          command: sudo gh-pages --dotfiles --message "[skip ci] Updates" --dist site
 
 workflows:
   version: 2
