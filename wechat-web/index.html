@@ -99,6 +99,8 @@
         
             <li><a class="toctree-l3" href="#retrieving-the-access-token-response-body">Retrieving the Access Token Response Body</a></li>
         
+            <li><a class="toctree-l3" href="#retrieving-user-details-from-a-token-oauth2">Retrieving User Details From A Token (OAuth2)</a></li>
+        
         </ul>
     
 
@@ -266,6 +268,11 @@ $accessTokenResponseBody = $user-&gt;accessTokenResponseBody;
 
 // use unionid as $user-&gt;id
 $user = Socialite::driver('wechat_web')-&gt;scopes('unionid')-&gt;user();
+</code></pre>
+
+<h3 id="retrieving-user-details-from-a-token-oauth2">Retrieving User Details From A Token (OAuth2)</h3>
+<p>If you already have a valid access token for a user, you can retrieve their details using the <code>userFromToken</code> method, but Tencent breaks OAuth2, need set "openid" first:</p>
+<pre><code class="php">$user = Socialite::driver('wechat_web')-&gt;setOpenId($openId)-&gt;userFromToken($token);
 </code></pre>
 
 <h4 id="reference_1">Reference</h4>
