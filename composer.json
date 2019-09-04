@@ -16,8 +16,8 @@
         "dflydev/dot-access-data": "^2.0"
     },
     "replace": {
-        "laravel-socialite-providers/socialite-wechat-service-account": "0.1.0",
-        "laravel-socialite-providers/socialite-wechat-web": "0.1.0"
+        "laravel-socialite-providers/socialite-wechat-service-account": "0.2.0",
+        "laravel-socialite-providers/socialite-wechat-web": "0.2.0"
     },
     "autoload": {
         "psr-4": {
