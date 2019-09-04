@@ -157,7 +157,7 @@ $user = Socialite::driver('wechat_service_account')->scopes('snsapi_base')->user
 If you already have a valid access token for a user, you can retrieve their details using the `userFromToken` method, but Tencent breaks OAuth2, need set "openid" first:
 
 ```php
-$user = Socialite::driver('wechat_web')->setOpenId($openId)->userFromToken($token);
+$user = Socialite::driver('wechat_service_account')->setOpenId($openId)->userFromToken($token);
 ```
 
 #### Reference
