@@ -1,0 +1,33 @@
+{
+    "name": "laravel-socialite-providers/coding",
+    "description": "CODING OAuth2 Provider for Laravel Socialite",
+    "version": "0.1.0",
+    "license": "MIT",
+    "authors": [{
+        "name": "sink",
+        "email": "sinkcup@gmail.com"
+    }],
+    "require": {
+        "php": ">=5.5",
+        "socialiteproviders/manager": "^3.3.6",
+        "ext-json": "*"
+    },
+    "extra": {
+        "component": {
+            "id": "coding",
+            "target": "laravel-socialite-providers/socialite-coding.git",
+            "path": "Coding",
+            "entry": "src/Provider.php"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "LaravelSocialiteProviders\\Coding\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "LaravelSocialiteProviders\\Coding\\Tests\\": "tests"
+        }
+    }
+}
