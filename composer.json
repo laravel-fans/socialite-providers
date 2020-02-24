@@ -1,7 +1,7 @@
 {
     "name": "laravel-socialite-providers/socialite-providers",
     "description": "Providers for Laravel Socialite",
-    "version": "0.2.0",
+    "version": "0.3.0",
     "license": "MIT",
     "authors": [{
         "name": "sink",
@@ -16,17 +16,20 @@
         "dflydev/dot-access-data": "^2.0"
     },
     "replace": {
+        "laravel-socialite-providers/coding": "0.1.0",
         "laravel-socialite-providers/socialite-wechat-service-account": "0.2.0",
         "laravel-socialite-providers/socialite-wechat-web": "0.2.0"
     },
     "autoload": {
         "psr-4": {
+            "LaravelSocialiteProviders\\Coding\\": "Coding/src",
             "LaravelSocialiteProviders\\WeChatServiceAccount\\": "WeChatServiceAccount/src",
             "LaravelSocialiteProviders\\WeChatWeb\\": "WeChatWeb/src"
         }
     },
     "autoload-dev": {
         "psr-4": {
+            "LaravelSocialiteProviders\\Coding\\Tests\\": "Coding/tests",
             "LaravelSocialiteProviders\\WeChatServiceAccount\\Tests\\": "WeChatServiceAccount/tests",
             "LaravelSocialiteProviders\\WeChatWeb\\Tests\\": "WeChatWeb/tests"
         }
