@@ -158,4 +158,4 @@ $user = Socialite::driver('coding')->setOpenId($openId)->userFromToken($token);
 #### Reference
 
 * [Laravel Socialite Docs](https://github.com/laravel/socialite)
-* [Laracasts Socialite video](https://laracasts.com/series/whats-new-in-laravel-5/episodes/9)
+* [CODING OAuth](https://help.coding.net/docs/project/open/oauth.html)
