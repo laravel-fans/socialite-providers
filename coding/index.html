@@ -94,8 +94,6 @@
         
             <li><a class="toctree-l3" href="#retrieving-the-access-token-response-body">Retrieving the Access Token Response Body</a></li>
         
-            <li><a class="toctree-l3" href="#retrieving-user-details-from-a-token-oauth2">Retrieving User Details From A Token (OAuth2)</a></li>
-        
         </ul>
     
 
@@ -248,11 +246,14 @@ return Socialite::with('coding')-&gt;stateless()-&gt;redirect();
 
 <h3 id="overriding-a-config">Overriding a config</h3>
 <p>If you need to override the providers environment or config variables dynamically anywhere in your application, you may use the following:</p>
-<pre><code class="php">$clientId = &quot;secret&quot;;
+<pre><code class="php">$clientId = &quot;id&quot;;
 $clientSecret = &quot;secret&quot;;
-$redirectUrl = &quot;http://yourdomain.com/api/redirect&quot;;
+$redirectUrl = &quot;http://example.com/login/coding/callback&quot;;
 $additionalProviderConfig = [
     // Add additional configuration values here.
+    'guzzle' =&gt; [
+        'base_uri' =&gt; 'https://your-team.coding.net/',
+    ],
 ];
 $config = new \SocialiteProviders\Manager\Config(
     $clientId,
@@ -269,17 +270,8 @@ return Socialite::with('coding')-&gt;setConfig($config)-&gt;redirect();
 via the <code>\Laravel\Socialite\User-&gt;token</code> public property.  Sometimes you need access to the whole response body which
 may contain items such as a <code>refresh_token</code>.</p>
 <p>You can get the access token response body, after you called the <code>user()</code> method in Socialite, by accessing the property <code>$user-&gt;accessTokenResponseBody</code>;</p>
-<pre><code class="php">// default use openid as $user-&gt;id
-$user = Socialite::driver('coding')-&gt;user();
+<pre><code class="php">$user = Socialite::driver('coding')-&gt;user();
 $accessTokenResponseBody = $user-&gt;accessTokenResponseBody;
-
-// use unionid as $user-&gt;id
-$user = Socialite::driver('coding')-&gt;scopes('unionid')-&gt;user();
-</code></pre>
-
-<h3 id="retrieving-user-details-from-a-token-oauth2">Retrieving User Details From A Token (OAuth2)</h3>
-<p>If you already have a valid access token for a user, you can retrieve their details using the <code>userFromToken</code> method, but Tencent breaks OAuth2, need set "openid" first:</p>
-<pre><code class="php">$user = Socialite::driver('coding')-&gt;setOpenId($openId)-&gt;userFromToken($token);
 </code></pre>
 
 <h4 id="reference_1">Reference</h4>
