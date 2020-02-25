@@ -114,11 +114,14 @@ return Socialite::with('coding')->stateless()->redirect();
 If you need to override the providers environment or config variables dynamically anywhere in your application, you may use the following:
 
 ```php
-$clientId = "secret";
+$clientId = "id";
 $clientSecret = "secret";
-$redirectUrl = "http://yourdomain.com/api/redirect";
+$redirectUrl = "http://example.com/login/coding/callback";
 $additionalProviderConfig = [
     // Add additional configuration values here.
+    'guzzle' => [
+        'base_uri' => 'https://your-team.coding.net/',
+    ],
 ];
 $config = new \SocialiteProviders\Manager\Config(
     $clientId,
@@ -139,20 +142,8 @@ may contain items such as a `refresh_token`.
 You can get the access token response body, after you called the `user()` method in Socialite, by accessing the property `$user->accessTokenResponseBody`;
 
 ```php
-// default use openid as $user->id
 $user = Socialite::driver('coding')->user();
 $accessTokenResponseBody = $user->accessTokenResponseBody;
-
-// use unionid as $user->id
-$user = Socialite::driver('coding')->scopes('unionid')->user();
-```
-
-### Retrieving User Details From A Token (OAuth2)
-
-If you already have a valid access token for a user, you can retrieve their details using the `userFromToken` method, but Tencent breaks OAuth2, need set "openid" first:
-
-```php
-$user = Socialite::driver('coding')->setOpenId($openId)->userFromToken($token);
 ```
 
 #### Reference
