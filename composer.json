@@ -1,37 +1,30 @@
 {
-    "name": "laravel-socialite-providers/socialite-providers",
+    "name": "laravel-fans/socialite-providers",
     "description": "Providers for Laravel Socialite",
-    "version": "0.3.0",
+    "version": "1.0.0",
     "license": "MIT",
     "authors": [{
         "name": "sink",
         "email": "sinkcup@gmail.com"
     }],
     "require": {
-        "php": ">=5.5",
+        "php": ">=7.2",
         "ext-json": "*",
-        "socialiteproviders/manager": "^3.3.6"
+        "socialiteproviders/manager": ">=v3.6"
     },
     "require-dev": {
         "dflydev/dot-access-data": "^2.0"
     },
     "replace": {
-        "laravel-socialite-providers/coding": "0.1.0",
-        "laravel-socialite-providers/socialite-wechat-service-account": "0.2.0",
-        "laravel-socialite-providers/socialite-wechat-web": "0.2.0"
+        "laravel-fans/socialite-coding": "0.1.0",
+        "laravel-fans/socialite-wechat-service-account": "0.2.0",
+        "laravel-fans/socialite-wechat-web": "0.2.0"
     },
     "autoload": {
         "psr-4": {
-            "LaravelSocialiteProviders\\Coding\\": "Coding/src",
-            "LaravelSocialiteProviders\\WeChatServiceAccount\\": "WeChatServiceAccount/src",
-            "LaravelSocialiteProviders\\WeChatWeb\\": "WeChatWeb/src"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "LaravelSocialiteProviders\\Coding\\Tests\\": "Coding/tests",
-            "LaravelSocialiteProviders\\WeChatServiceAccount\\Tests\\": "WeChatServiceAccount/tests",
-            "LaravelSocialiteProviders\\WeChatWeb\\Tests\\": "WeChatWeb/tests"
+            "LaravelFans\\SocialiteProviders\\Coding\\": "Coding/src",
+            "LaravelFans\\SocialiteProviders\\WeChatServiceAccount\\": "WeChatServiceAccount/src",
+            "LaravelFans\\SocialiteProviders\\WeChatWeb\\": "WeChatWeb/src"
         }
     }
 }

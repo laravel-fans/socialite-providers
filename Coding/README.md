@@ -6,7 +6,7 @@ title: "CODING"
 
 ```bash
 // This assumes that you have composer installed globally
-composer require laravel-socialite-providers/coding
+composer require laravel-fans/socialite-coding
 ```
 
 ## 2. Service Provider
@@ -17,11 +17,15 @@ composer require laravel-socialite-providers/coding
 
 For example:
 
-``` php
-'providers' => [
-    // a whole bunch of providers
-    // remove 'Laravel\Socialite\SocialiteServiceProvider',
-    \SocialiteProviders\Manager\ServiceProvider::class, // add
+```php
+return [
+    'providers' => [
+        /*
+         * Package Service Providers...
+         */
+        // remove 'Laravel\Socialite\SocialiteServiceProvider',
+        \SocialiteProviders\Manager\ServiceProvider::class, // add
+    ]
 ];
 ```
 
@@ -33,7 +37,7 @@ For example:
 
 * Add your listeners (i.e. the ones from the providers) to the `SocialiteProviders\Manager\SocialiteWasCalled[]` that you just created.
 
-* The listener that you add for this provider is `'LaravelSocialiteProviders\\Coding\\CodingExtendSocialite@handle',`.
+* The listener that you add for this provider is `'LaravelFans\\SocialiteProviders\\Coding\\CodingExtendSocialite@handle',`.
 
 * Note: You do not need to add anything for the built-in socialite providers unless you override them with your own providers.
 
@@ -48,14 +52,14 @@ For example:
 protected $listen = [
     \SocialiteProviders\Manager\SocialiteWasCalled::class => [
         // add your listeners (aka providers) here
-        'LaravelSocialiteProviders\\Coding\\CodingExtendSocialite@handle',
+        'LaravelFans\\SocialiteProviders\\Coding\\CodingExtendSocialite@handle',
     ],
 ];
 ```
 
 #### Reference
 
-* [Laravel docs about events](http://laravel.com/docs/5.0/events)
+* [Laravel docs about events](http://laravel.com/docs/events)
 * [Laracasts video on events in Laravel 5](https://laracasts.com/lessons/laravel-5-events)
 
 ## 4. Configuration setup
@@ -114,9 +118,9 @@ return Socialite::with('coding')->stateless()->redirect();
 If you need to override the providers environment or config variables dynamically anywhere in your application, you may use the following:
 
 ```php
-$clientId = "id";
-$clientSecret = "secret";
-$redirectUrl = "http://example.com/login/coding/callback";
+$clientId = "foo";
+$clientSecret = "bar";
+$redirectUrl = "http://127.0.0.1:8000/login/coding/callback";
 $additionalProviderConfig = [
     // Add additional configuration values here.
     'guzzle' => [

@@ -6,7 +6,7 @@ title: "WeChat Service Account"
 
 ```bash
 // This assumes that you have composer installed globally
-composer require laravel-socialitep-roviders/wechat-service-account
+composer require laravel-fans/socialite-wechat-service-account
 ```
 
 ## 2. Service Provider
@@ -17,11 +17,15 @@ composer require laravel-socialitep-roviders/wechat-service-account
 
 For example:
 
-``` php
-'providers' => [
-    // a whole bunch of providers
-    // remove 'Laravel\Socialite\SocialiteServiceProvider',
-    \SocialiteProviders\Manager\ServiceProvider::class, // add
+```php
+return [
+    'providers' => [
+        /*
+         * Package Service Providers...
+         */
+        // remove 'Laravel\Socialite\SocialiteServiceProvider',
+        \SocialiteProviders\Manager\ServiceProvider::class, // add
+    ]
 ];
 ```
 
@@ -33,7 +37,7 @@ For example:
 
 * Add your listeners (i.e. the ones from the providers) to the `SocialiteProviders\Manager\SocialiteWasCalled[]` that you just created.
 
-* The listener that you add for this provider is `'LaravelSocialiteProviders\\WeChatServiceAccount\\WeChatServiceAccountExtendSocialite@handle',`.
+* The listener that you add for this provider is `'LaravelFans\\SocialiteProviders\\WeChatServiceAccount\\WeChatServiceAccountExtendSocialite@handle',`.
 
 * Note: You do not need to add anything for the built-in socialite providers unless you override them with your own providers.
 
@@ -48,14 +52,14 @@ For example:
 protected $listen = [
     \SocialiteProviders\Manager\SocialiteWasCalled::class => [
         // add your listeners (aka providers) here
-        'LaravelSocialiteProviders\\WeChatServiceAccount\\WeChatServiceAccountExtendSocialite@handle',
+        'LaravelFans\\SocialiteProviders\\WeChatServiceAccount\\WeChatServiceAccountExtendSocialite@handle',
     ],
 ];
 ```
 
 #### Reference
 
-* [Laravel docs about events](http://laravel.com/docs/5.0/events)
+* [Laravel docs about events](http://laravel.com/docs/events)
 * [Laracasts video on events in Laravel 5](https://laracasts.com/lessons/laravel-5-events)
 
 ## 4. Configuration setup
@@ -65,13 +69,15 @@ You will need to add an entry to the services configuration file so that after c
 #### Add to `config/services.php`.
 
 ```php
-'wechat_service_account' => [
-    'client_id' => env('WECHAT_SERVICE_ACCOUNT_APP_ID'),
-    'client_secret' => env('WECHAT_SERVICE_ACCOUNT_APP_SECRET'),
-    'redirect' => env('WECHAT_SERVICE_ACCOUNT_CALLBACK_URL'),
-    'scopes' => preg_split('/,/', env('WECHAT_SERVICE_ACCOUNT_SCOPES'), null, PREG_SPLIT_NO_EMPTY), // can not use explode, see vlucas/phpdotenv#175
-    'union_id_with' => preg_split('/,/', env('WECHAT_SERVICE_ACCOUNT_UNION_ID_WITH'), null, PREG_SPLIT_NO_EMPTY),
-],
+return [
+    'wechat_service_account' => [
+        'client_id' => env('WECHAT_SERVICE_ACCOUNT_APP_ID'),
+        'client_secret' => env('WECHAT_SERVICE_ACCOUNT_APP_SECRET'),
+        'redirect' => env('WECHAT_SERVICE_ACCOUNT_CALLBACK_URL'),
+        'scopes' => preg_split('/,/', env('WECHAT_SERVICE_ACCOUNT_SCOPES'), null, PREG_SPLIT_NO_EMPTY), // can not use explode, see vlucas/phpdotenv#175
+        'union_id_with' => preg_split('/,/', env('WECHAT_SERVICE_ACCOUNT_UNION_ID_WITH'), null, PREG_SPLIT_NO_EMPTY),
+    ],
+];
 ```
 
 ## 5. Usage
@@ -116,9 +122,9 @@ return Socialite::with('wechat_service_account')->stateless()->redirect();
 If you need to override the providers environment or config variables dynamically anywhere in your application, you may use the following:
 
 ```php
-$clientId = "secret";
-$clientSecret = "secret";
-$redirectUrl = "http://yourdomain.com/api/redirect";
+$clientId = "foo";
+$clientSecret = "bar";
+$redirectUrl = "http://127.0.0.1:8000/login/coding/wechat-service-account";
 $additionalProviderConfig = [
     // Add additional configuration values here.
 ];

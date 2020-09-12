@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelSocialiteProviders\Coding;
+namespace LaravelFans\SocialiteProviders\Coding;
 
 use Illuminate\Support\Arr;
 use SocialiteProviders\Manager\OAuth2\AbstractProvider;
@@ -40,13 +40,13 @@ class Provider extends AbstractProvider
      */
     protected function getUserByToken($token)
     {
-        $response = $this->getHttpClient()->get('/api/account/current_user', [
+        $response = $this->getHttpClient()->get('/api/me', [
             'query' => [
                 'access_token' => $token,
             ],
         ]);
 
-        return json_decode($response->getBody(), true)['data'];
+        return json_decode($response->getBody(), true);
     }
 
     /**

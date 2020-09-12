@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelSocialiteProviders\WeChatServiceAccount;
+namespace LaravelFans\SocialiteProviders\WeChatServiceAccount;
 
 use SocialiteProviders\Manager\OAuth2\AbstractProvider;
 use SocialiteProviders\Manager\OAuth2\User;

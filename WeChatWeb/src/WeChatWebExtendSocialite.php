@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelSocialiteProviders\WeChatWeb;
+namespace LaravelFans\SocialiteProviders\WeChatWeb;
 
 use SocialiteProviders\Manager\SocialiteWasCalled;
 

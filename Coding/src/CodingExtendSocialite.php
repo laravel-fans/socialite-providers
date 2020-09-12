@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelSocialiteProviders\Coding;
+namespace LaravelFans\SocialiteProviders\Coding;
 
 use SocialiteProviders\Manager\SocialiteWasCalled;
 
